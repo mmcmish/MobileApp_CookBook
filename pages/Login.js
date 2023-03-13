@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, Button} from 'react-native'
 
 function Login() {
     return (
@@ -8,7 +8,7 @@ function Login() {
             <View style={styles.inputView}>
                 <TextInput
                     style={styles.inputText}
-                    placeholder="Email"
+                    placeholder="Email" 
                     placeholderTextColor="#003f5c"
                 />
             </View>

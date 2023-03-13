@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, redirect, url_for, jsonify
+from flask import Flask, render_template,request, session, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os 
 from flask_mysqldb import MySQL
@@ -72,7 +72,17 @@ def login():
         cursor.execute('SELECT * FROM REGISTER WHERE Username = %s AND password = %s', (Username, Password))
         user = cursor.fetchone()
         if user: 
-            session[]
+            session["loggedin"] = True
+            session["id"] = user["id"]
+            session["username"] = user["username"]
+            message = "Logged in successfully"
+            return redirect(url_for("home"))
+        else:
+            message = "Incorrect username or Password"
+
+@app.route("/home/<username>")
+
+    
 
 
     
