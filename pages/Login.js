@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, Button} from 'react-native'
+import { View, StyleSheet, Text, Button, TextInput, TouchableOpacity} from 'react-native'
 
 function Login() {
     return (
@@ -83,4 +83,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Login
+export default Login;
