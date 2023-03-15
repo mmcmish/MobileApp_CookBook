@@ -26,13 +26,13 @@ const Cookbook: React.FC<StackScreenProps<any>> = ({navigation}) =>{
             placeholderTextColor="#003f5c"
         />
     </View>
-    <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>Login</Text>
+    <TouchableOpacity >
+        
         <Button title= "Login" buttonStyle = {styles.loginBtn} />
     </TouchableOpacity>
-    <TouchableOpacity style={styles.registerBtn}>
-        <Text style={styles.registerText}>Register</Text>
-        <Button />
+    <TouchableOpacity>
+        
+        <Button title="Register" buttonStyle = {styles.registerBtn} onPress = {() => navigation.navigate("Register")}/>
     </TouchableOpacity>
 </View>
   )
@@ -95,9 +95,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     loginText: {
+   
         color: 'white',
-       marginTop:'-20%',
-       alignItems: 'center'
+        marginTop: '-15%',
+        marginLeft: '-150%',
+
+     
     },
     registerBtn: {
         width: '80%',
@@ -106,10 +109,11 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 10,
+       
     },
     registerText: {
         color: 'white',
+        marginBottom: '-10%'
     },
 });
 
