@@ -2,13 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useRef} from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard,} from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { Button } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
 import { Platform } from 'react-native';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-const auth = getAuth();
 
-const LoginScreen: React.FC<StackScreenProps<any>> = ({navigation}) =>{
+    const auth = getAuth();
 
     
     const Signin = () =>{
@@ -20,7 +19,7 @@ const LoginScreen: React.FC<StackScreenProps<any>> = ({navigation}) =>{
     
     
     async function Login() {
-        if ( value.email === '' || value.password){
+        if ( value.email === '' || value.password === ''){
             setValue({
                 ...value,
                 error: 'email and password are mandatory'
@@ -44,6 +43,8 @@ const LoginScreen: React.FC<StackScreenProps<any>> = ({navigation}) =>{
         <View style={styles.container}>
     <Text style={styles.title}>Cookbook</Text>
     <View style={styles.inputView}>
+
+ 
         <TextInput
           
           style={styles.inputText}
@@ -53,24 +54,23 @@ const LoginScreen: React.FC<StackScreenProps<any>> = ({navigation}) =>{
           onChangeText = {(text) =>setValue({...value, email: text})}
           />
     </View>
-    {/* <View style={styles.inputView}>
-        <TextInput
-           
-           secureTextEntry = {true}
-           style={styles.inputText}
+    <View style={styles.inputView}>
+        <Input
+           style = {styles.inputText}
            value = {value.password}
            placeholder="Password"
            placeholderTextColor="#003f5c"
-           onChange={(text) => setValue({...value, password: text})}
+           onChangeText={(text) => setValue({...value, password: text})}
+           secureTextEntry = {true}
            />
-    </View> */}
+    </View>
+
+    <Button title="Login" buttonStyle = {styles.loginBtn} onPress = {Signin} />
     
 </View>
   )
 }
   
-
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -130,5 +130,5 @@ const styles = StyleSheet.create({
     },
 });
 
-    }
-export default LoginScreen;
+    
+export default Signin;
