@@ -8,8 +8,11 @@ import Register from "./pages/Register";
 
 const stack = createNativeStackNavigator();
 
+
+
 export default function App() {
-    return (
+
+
         <NavigationContainer>
             <stack.Navigator>
 
