@@ -8,8 +8,6 @@ import Register from "./pages/Register";
 
 const stack = createNativeStackNavigator();
 
-
-
 export default function App() {
 
 
@@ -25,14 +23,10 @@ export default function App() {
                 </stack.Screen>
 
 
-                {/*<View style={styles.container}>*/}
-                {/*  <Text>Open up App.js to start working on your app!</Text>*/}
-                {/*    <Login />*/}
-                {/*  <StatusBar style="auto" />*/}
-                {/*</View>*/}
+         
             </stack.Navigator>
         </NavigationContainer>
-    );
+  
 }
 
 const styles = StyleSheet.create({
