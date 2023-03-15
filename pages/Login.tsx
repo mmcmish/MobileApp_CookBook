@@ -53,7 +53,7 @@ const LoginScreen: React.FC<StackScreenProps<any>> = ({navigation}) =>{
           onChangeText = {(text) =>setValue({...value, email: text})}
           />
     </View>
-    <View style={styles.inputView}>
+    {/* <View style={styles.inputView}>
         <TextInput
            
            secureTextEntry = {true}
@@ -63,7 +63,7 @@ const LoginScreen: React.FC<StackScreenProps<any>> = ({navigation}) =>{
            placeholderTextColor="#003f5c"
            onChange={(text) => setValue({...value, password: text})}
            />
-    </View>
+    </View> */}
     
 </View>
   )
