@@ -1,42 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native'
 
-export default function List() {
-  return (
-    <View style={styles.container}>
-      <Text>List screen!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+
+class List extends React.Component {
+    render() {
+     return (
+        <view style={style.container}>
+            <Text>Hello from List</Text>
+
+
+            <Button title='Home' onPress={() => this.prop.navigation.navigate("Home")}/>
+        </view>
+
+
+        )
+    }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-
-
-// import React from 'react'
-// import { StyleSheet, Text, View, Button } from 'react-native'
-// class List extends React.Component {
-//     render() {
-//      return (
-//         <view style={style.container}>
-//             <Text>Hello from List</Text>
-
-
-//             <Button title='Home' onPress={() => this.prop.navigation.navigate("Home")}/>
-//         </view>
-
-
-//         )
-//     }
-// }
-
-// export default List
+export default List
