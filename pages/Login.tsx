@@ -4,59 +4,72 @@ import { View, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFe
 import { StackScreenProps } from '@react-navigation/stack';
 import { Button } from 'react-native-elements';
 import { Platform } from 'react-native';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-const Cookbook: React.FC<StackScreenProps<any>> = ({navigation}) =>{
-  return(
-    <View style={styles.container}>
+const auth = getAuth();
+
+const LoginScreen: React.FC<StackScreenProps<any>> = ({navigation}) =>{
+
+    
+    const Signin = () =>{
+    const [value, setValue] = React.useState({
+        email: '',
+        password: '',
+        error: ''
+    })
+    
+    
+    async function Login() {
+        if ( value.email === '' || value.password){
+            setValue({
+                ...value,
+                error: 'email and password are mandatory'
+                
+            })
+                return;
+        }
+        
+        try{
+            await signInWithEmailAndPassword(auth, value.email, value.password);
+
+        }catch(error){
+            setValue({
+                ...value,
+                error: error.message,
+            })
+        
+        }
+    } 
+    return(
+        <View style={styles.container}>
     <Text style={styles.title}>Cookbook</Text>
     <View style={styles.inputView}>
         <TextInput
           
-            style={styles.inputText}
-            placeholder="Email"
-            placeholderTextColor="#003f5c"
-        />
+          style={styles.inputText}
+          placeholder="Email"
+          placeholderTextColor="#003f5c"
+          value={value.email}
+          onChangeText = {(text) =>setValue({...value, email: text})}
+          />
     </View>
-    <View style={styles.inputView}>
+    {/* <View style={styles.inputView}>
         <TextInput
            
-            secureTextEntry
-            style={styles.inputText}
-            placeholder="Password"
-            placeholderTextColor="#003f5c"
-        />
-    </View>
-    <TouchableOpacity >
-        
-        <Button title= "Login" buttonStyle = {styles.loginBtn} />
-    </TouchableOpacity>
-    <TouchableOpacity>
-        
-        <Button title="Register" buttonStyle = {styles.registerBtn} onPress = {() => navigation.navigate("Register")}/>
-    </TouchableOpacity>
+           secureTextEntry = {true}
+           style={styles.inputText}
+           value = {value.password}
+           placeholder="Password"
+           placeholderTextColor="#003f5c"
+           onChange={(text) => setValue({...value, password: text})}
+           />
+    </View> */}
+    
 </View>
   )
 }
+  
 
-
-
-
-// function Login() {
-//     const emailRef = useRef();
-//     const passwordRef = useRef();
-
-//     const handlePress = () => {
-//         emailRef.current.blur();
-//         passwordRef.current.blur();
-//         Keyboard.dismiss();
-//     };
-
-//     return (
-//         <TouchableWithoutFeedback onPress={handlePress}>
-    
-//         </TouchableWithoutFeedback>
-//     );
-// }
 
 const styles = StyleSheet.create({
     container: {
@@ -117,4 +130,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Cookbook;
+    }
+export default LoginScreen;
