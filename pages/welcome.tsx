@@ -18,7 +18,6 @@ const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           />
           <Button
               title="Sign up"
-              type="outline"
               buttonStyle={styles.registerBtn}
               titleStyle={styles.buttonTitle}
               onPress={() => navigation.navigate('Register')}

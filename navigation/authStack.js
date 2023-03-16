@@ -20,7 +20,7 @@ export default function AuthStack() {
                     headerLeft: () => (
                         <PaperIconButton
                             icon="arrow-left"
-                            onPress={(/*Add code here*/) => navigation.goBack()} // add the onPress action to go back
+                            onPress={() => navigation.goBack()} // add the onPress action to go back
                         />
                     ),
                 }}
