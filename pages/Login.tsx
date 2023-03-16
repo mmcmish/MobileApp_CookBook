@@ -1,76 +1,79 @@
-import { StatusBar } from 'expo-status-bar';
+import {StatusBar} from 'expo-status-bar';
 import React, {useRef} from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard,} from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
-import { Input, Button } from 'react-native-elements';
-import { Platform } from 'react-native';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {View, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard,} from 'react-native';
+import {StackScreenProps} from '@react-navigation/stack';
+import {Input, Button} from 'react-native-elements';
+import {Platform} from 'react-native';
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 
 
-    const auth = getAuth();
+const auth = getAuth();
 
-    
-    const Signin = () =>{
+
+const Signin = () => {
     const [value, setValue] = React.useState({
         email: '',
         password: '',
         error: ''
     })
-    
-    
+
+
     async function Login() {
-        if ( value.email === '' || value.password === ''){
+        if (value.email === '' || value.password === '') {
             setValue({
                 ...value,
                 error: 'email and password are mandatory'
-                
+
             })
-                return;
+            return;
         }
-        
-        try{
+
+        try {
             await signInWithEmailAndPassword(auth, value.email, value.password);
 
-        }catch(error){
+        } catch (error) {
             setValue({
                 ...value,
                 error: error.message,
             })
-        
+
         }
-    } 
-    return(
-        <View style={styles.container}>
-    <Text style={styles.title}>Cookbook</Text>
-    <View style={styles.inputView}>
+    }
 
- 
-        <TextInput
-          
-          style={styles.inputText}
-          placeholder="Email"
-          placeholderTextColor="#003f5c"
-          value={value.email}
-          onChangeText = {(text) =>setValue({...value, email: text})}
-          />
-    </View>
-    <View style={styles.inputView}>
-        <Input
-           style = {styles.inputText}
-           value = {value.password}
-           placeholder="Password"
-           placeholderTextColor="#003f5c"
-           onChangeText={(text) => setValue({...value, password: text})}
-           secureTextEntry = {true}
-           />
-    </View>
+    return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.container}>
+                <Text style={styles.title}>Cookbook</Text>
+                <Text style={styles.subtitle}>Login</Text>
+                <View style={styles.inputView}>
+                    <TextInput
 
-    <Button title="Login" buttonStyle = {styles.loginBtn} onPress = {Signin} />
-    
-</View>
-  )
+                        style={styles.inputText}
+                        placeholder="Email"
+                        placeholderTextColor="#003f5c"
+                        value={value.email}
+                        onChangeText={(text) => setValue({...value, email: text})}
+                    />
+                </View>
+                <View style={styles.inputView}>
+                    <TextInput
+                        secureTextEntry
+                        style={styles.inputText}
+                        placeholder="Password"
+                        placeholderTextColor="#003f5c"
+                        value={value.password}
+                        onChangeText={(text) => setValue({...value, password: text})}
+                    />
+                </View>
+                <TouchableOpacity style={styles.loginBtn} onPress={Signin}>
+                    <Text style={styles.loginText}>Login</Text>
+                </TouchableOpacity>
+                <StatusBar style="auto" />
+            </View>
+        </TouchableWithoutFeedback>
+    );
 }
-  
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -81,6 +84,11 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 50,
         fontFamily: Platform.OS === 'ios' ? 'SnellRoundhand' : 'DancingScript',
+        textAlign: 'center',
+        marginBottom: 40,
+    },
+    subtitle: {
+        fontSize: 20,
         textAlign: 'center',
         marginBottom: 40,
     },
@@ -96,7 +104,11 @@ const styles = StyleSheet.create({
     inputText: {
         height: 50,
         color: 'black',
+        fontFamily: Platform.OS === 'ios' ? 'Helvetica' : 'Roboto',
+        fontSize: 16,
+        paddingLeft: 10,
     },
+
     loginBtn: {
         width: '80%',
         backgroundColor: '#fb5b5a',
@@ -108,27 +120,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     loginText: {
-   
         color: 'white',
-        marginTop: '-15%',
-        marginLeft: '-150%',
-
-     
-    },
-    registerBtn: {
-        width: '80%',
-        backgroundColor: '#003f5c',
-        borderRadius: 25,
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-       
-    },
-    registerText: {
-        color: 'white',
-        marginBottom: '-10%'
     },
 });
 
-    
+
 export default Signin;
