@@ -13,6 +13,7 @@ export default function UserStack(){
 
             <Stack.Screen name="Home" component={Home}/>
             <Stack.Screen name = "List" component={List}/>
+          
             
             </Stack.Navigator>
             </NavigationContainer>

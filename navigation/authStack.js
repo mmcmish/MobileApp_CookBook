@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import welcome from '../pages/welcome';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import Reset from '../pages/Reset'
 import { IconButton as PaperIconButton } from 'react-native-paper';
 
 const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ export default function AuthStack() {
                 />
                 <Stack.Screen name='Login' component={Login} />
                 <Stack.Screen name='Register' component={Register} />
+                <Stack.Screen name='Reset' component={Reset}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

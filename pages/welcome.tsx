@@ -4,6 +4,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { Button } from 'react-native-elements';
 import {Platform} from 'react-native';
 
+
 const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   return (
       <View style={styles.container}>
