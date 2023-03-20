@@ -2,17 +2,21 @@ import {StatusBar} from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard,} from 'react-native';
 import {Platform} from 'react-native';
-import { auth, signInWithGoogle } from '../config/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth, signInWithGoogle, LoginWithEmailAndPassword } from '../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { redirect,  } from 'react-router-dom';
+import { redirect} from 'react-router-dom';
 
 
 
-Login = () => {
+Login  = () => {
    const [email, setEmail] = useState("");
-   const [password, setpassword] = useState("");
+   const [password, setPassword] = useState("");
    const [user,loading,error] = useAuthState(auth);
+
+   const login = () => {
+    if(!password || !email) alert("please enter required fields");
+   
+   }
 
    useEffect(() =>{
     if (loading){
@@ -42,16 +46,17 @@ Login = () => {
                 placeholder="Password"
                 placeholderTextColor="#003f5c"
                 value={password}
-                onChangeText={(Text) => setpassword(Text)}
+                onChangeText={(Text) => setPassword(Text)}
             />
         </View>
-        <TouchableOpacity style={styles.loginBtn} onPress={() =>signInWithEmailAndPassword(email, password)}>
+        <TouchableOpacity style={styles.loginBtn} onPress={() => { LoginWithEmailAndPassword(email,password);
+}}>
             <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity style = {styles.loginBtn} onPress = {signInWithGoogle}>
             <Text style = {styles.loginText} > Google Login </Text>
         </TouchableOpacity>
-
+       
         <StatusBar style="auto" />
     </View>
 </TouchableWithoutFeedback>

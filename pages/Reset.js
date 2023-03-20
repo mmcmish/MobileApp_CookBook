@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { View,TextInput } from "react-native";
+import { View,TextInput, StyleSheet } from "react-native";
 import {redirect} from "react-router-dom";
 import { auth, sendPasswordResetEmail } from "../config/firebase";
 
@@ -11,7 +11,7 @@ Reset = () =>{
     useEffect(() =>{
         if (loading) return;
         if(user) redirect("/Home");
-    },[user, loading])
+    },[user, loading]);
     return(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style = {StyleSheet.container}>

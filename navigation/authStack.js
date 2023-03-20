@@ -6,7 +6,6 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Reset from '../pages/Reset'
 import { IconButton as PaperIconButton } from 'react-native-paper';
-
 const Stack = createStackNavigator();
 
 export default function AuthStack() {
@@ -21,7 +20,8 @@ export default function AuthStack() {
                     headerLeft: () => (
                         <PaperIconButton
                             icon="arrow-left"
-                            onPress={() => navigation.goBack()} // add the onPress action to go back
+                            onPress={() => navigation.navigate("welcome")} // add the onPress action to go back
+
                         />
                     ),
                 }}

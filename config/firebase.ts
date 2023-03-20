@@ -5,6 +5,7 @@ import { initializeApp } from 'firebase/app';
 
 
 
+
 const firebaseConfig = {
   apiKey: Constants.manifest?.extra?.firebaseApiKey,
   authDomain: Constants.manifest?.extra?.firebaseAuthDomain,
@@ -28,7 +29,7 @@ const signInWithGoogle = async() =>{
     if (docs.docs.length === 0){
       await addDoc(collection(db, "Users"), {
         uid: user.uid,
-        name: user.name,
+        name: user.displayName,
         authProvider: "google",
         email: user.email,
       });
@@ -39,7 +40,7 @@ const signInWithGoogle = async() =>{
   }
 };
 
-const LoginWithEmailAndPassword =async(email, password) =>{
+const LoginWithEmailAndPassword = async (email, password) =>{
 
   try{
     await signInWithEmailAndPassword(auth, email, password);
@@ -68,7 +69,7 @@ const registerWithEmailAndPassword = async (name, email,password) => {
 const sendPasswordReset = async(email) => {
   try{
     await sendPasswordResetEmail(auth, email);
-    alert("password reset link");
+    alert("password reset link sent");
   }catch(err){
     console.error(err);
     alert(err.message);
@@ -84,6 +85,6 @@ export{
   signInWithGoogle,
   LoginWithEmailAndPassword,
   registerWithEmailAndPassword,
-  sendPasswordResetEmail,
+  sendPasswordReset,
   logOut
 }

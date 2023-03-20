@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "dotenv";
 
 export default{
   "expo": {
