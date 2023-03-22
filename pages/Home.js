@@ -6,7 +6,6 @@ import { signOut } from 'firebase/auth';
 import { auth, db, logOut } from '../config/firebase';
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { async } from '@firebase/util';
 import { redirect } from 'react-router-dom';
 
 
@@ -28,11 +27,17 @@ function Home(){
         if (loading) return;
         if(!user)redirect("/Login");
         fetchUserName();
-    }, [user, loading]);
-return(
-    <View>
-        
-    </View>
-)
+    }, [user, loading] )
+
+    return(
+        <View>
+            <Text> {name} </Text>
+            <Text> {user?.email} </Text>
+
+            <Button title='log out'  onPress={logOut} />
+        </View>
+    )
+
+
 }
 export default Home;

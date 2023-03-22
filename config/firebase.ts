@@ -82,6 +82,7 @@ const logOut = () =>{
 export{
   auth,
   db,
+  app,
   signInWithGoogle,
   LoginWithEmailAndPassword,
   registerWithEmailAndPassword,
