@@ -15,6 +15,7 @@ Login  = () => {
 
    const login = () => {
     if(!password || !email) alert("please enter required fields");
+    LoginWithEmailAndPassword(email,password)
    
    }
 
@@ -49,8 +50,7 @@ Login  = () => {
                 onChangeText={(Text) => setPassword(Text)}
             />
         </View>
-        <TouchableOpacity style={styles.loginBtn} onPress={() => { LoginWithEmailAndPassword(email,password);
-}}>
+        <TouchableOpacity style={styles.loginBtn} onPress={login}>
             <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity style = {styles.loginBtn} onPress = {signInWithGoogle}>
