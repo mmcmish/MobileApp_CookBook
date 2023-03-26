@@ -6,8 +6,6 @@ import { auth, signInWithGoogle, LoginWithEmailAndPassword } from '../config/fir
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { redirect} from 'react-router-dom';
 
-
-
 Login  = () => {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");

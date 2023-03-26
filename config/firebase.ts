@@ -3,6 +3,7 @@ import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebas
 import Constants from 'expo-constants';
 import { initializeApp } from 'firebase/app';
 
+import "firebase/auth"
 
 
 
