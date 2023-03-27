@@ -2,7 +2,8 @@ import { getAuth,signInWithPopup, signInWithEmailAndPassword, createUserWithEmai
 import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import Constants from 'expo-constants';
 import { initializeApp } from 'firebase/app';
-
+import {GoogleSignin, GoogleSigninButton, statusCodes,} from 'react-native-google-signin';
+import Auth from '@react-native-firebase/auth';
 import "firebase/auth"
 
 
@@ -14,31 +15,27 @@ const firebaseConfig = {
   storageBucket: Constants.manifest?.extra?.firebaseStorageBucket,
   messagingSenderId: Constants.manifest?.extra?.firebaseMessagingSenderId,
   appId: Constants.manifest?.extra?.firebaseAppId,
-  };
+};
 
 const app =initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
-const signInWithGoogle = async() =>{
-  try{
-    const res = await signInWithPopup(auth, googleProvider);
-    const user = res.user;
-    const q = query(collection(db, "Users"), where("uid", "==", user.uid));
-    const docs = await getDocs(q);
-    if (docs.docs.length === 0){
-      await addDoc(collection(db, "Users"), {
-        uid: user.uid,
-        name: user.displayName,
-        authProvider: "google",
-        email: user.email,
-      });
-    }
-  }catch (err){
-    console.error(err);
-    alert(err.message);
-  }
+const  signInWithGoogle = async() =>{
+  GoogleSignin.configure({
+    webClientId: '575825664304-i0tho47taovuej8d2efrjaps11nc2k61.apps.googleusercontent.com',
+    offlineAccess: true
+  });
+
+ const {idToken} = await GoogleSignin.signIn();
+ const googleCredential = Auth.GoogleAuthProvider.credential(idToken);
+ const user_sign_in = Auth().signInWithCredential(googleCredential);
+ user_sign_in.then((user) =>{
+  console.log(user);
+ }).catch((error) =>{
+  console.log(error);
+ })
 };
 
 const LoginWithEmailAndPassword = async (email, password) =>{

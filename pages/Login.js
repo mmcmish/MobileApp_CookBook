@@ -16,6 +16,14 @@ Login  = () => {
     LoginWithEmailAndPassword(email,password)
    
    }
+   function onAuthStateChanged(user){
+    setUser(user);
+    if(initializing) setInitializing(false);
+   }
+   useEffect(() =>{
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+   }, [])
 
    useEffect(() =>{
     if (loading){
