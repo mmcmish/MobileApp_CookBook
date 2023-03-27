@@ -22,21 +22,21 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
-const  signInWithGoogle = async() =>{
-  GoogleSignin.configure({
-    webClientId: '575825664304-i0tho47taovuej8d2efrjaps11nc2k61.apps.googleusercontent.com',
-    offlineAccess: true
-  });
+// const  signInWithGoogle = async() =>{
+//   GoogleSignin.configure({
+//     webClientId: '575825664304-i0tho47taovuej8d2efrjaps11nc2k61.apps.googleusercontent.com',
+//     offlineAccess: true
+//   });
 
- const {idToken} = await GoogleSignin.signIn();
- const googleCredential = Auth.GoogleAuthProvider.credential(idToken);
- const user_sign_in = Auth().signInWithCredential(googleCredential);
- user_sign_in.then((user) =>{
-  console.log(user);
- }).catch((error) =>{
-  console.log(error);
- })
-};
+//  const {idToken} = await GoogleSignin.signIn();
+//  const googleCredential = Auth.GoogleAuthProvider.credential(idToken);
+//  const user_sign_in = Auth().signInWithCredential(googleCredential);
+//  user_sign_in.then((user) =>{
+//   console.log(user);
+//  }).catch((error) =>{
+//   console.log(error);
+//  })
+// };
 
 const LoginWithEmailAndPassword = async (email, password) =>{
 
@@ -81,7 +81,7 @@ export{
   auth,
   db,
   app,
-  signInWithGoogle,
+  // signInWithGoogle,
   LoginWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
