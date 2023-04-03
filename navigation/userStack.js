@@ -12,9 +12,9 @@ export default function UserStack(){
             <Stack.Navigator>
 
             <Stack.Screen name="Home" component={Home}/>
-        
-          
-            
+
+
+
             </Stack.Navigator>
             </NavigationContainer>
     )

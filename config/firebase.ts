@@ -27,7 +27,7 @@ const googleProvider = new GoogleAuthProvider();
 //     webClientId: '575825664304-i0tho47taovuej8d2efrjaps11nc2k61.apps.googleusercontent.com',
 //     offlineAccess: true
 //   });
-
+//
 //  const {idToken} = await GoogleSignin.signIn();
 //  const googleCredential = Auth.GoogleAuthProvider.credential(idToken);
 //  const user_sign_in = Auth().signInWithCredential(googleCredential);

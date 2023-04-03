@@ -8,26 +8,40 @@ import Reset from '../pages/Reset'
 import { IconButton as PaperIconButton } from 'react-native-paper';
 import { redirect } from 'react-router-dom';
 
+
+import Home from "../pages/Home";//remove after test
+
 const Stack = createStackNavigator();
 
 export default function AuthStack() {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Welcome"
-                screenOptions={{
-                    headerShown: true,
-                    headerTitle: null, // hide the header title
-                    headerTransparent: true, // make the header transparent
-                    headerLeft: () => (
-                        <PaperIconButton
-                            icon="arrow-left"
-                            onPress={() => redirect("welcome")} // add the onPress action to go back
+                // initialRouteName="Welcome"
+                // screenOptions={{
+                //     headerShown: true,
+                //     headerTitle: null, // hide the header title
+                //     headerTransparent: true, // make the header transparent
+                //     headerLeft: () => (
+                //         <PaperIconButton
+                //             icon="arrow-left"
+                //             onPress={() => redirect("Welcome")} // add the onPress action to go back
+                //
+                //         />
+                //     ),
+                // }}
 
-                        />
-                    ),
-                }}
+
+
             >
+                {/*remove after test*/}
+                {/*<Stack.Screen*/}
+                {/*    name='Home'*/}
+                {/*    component={Home}*/}
+                {/*    options={{ headerShown: false }} // hide the header for the Home screen*/}
+                {/*/>*/}
+
+
                 <Stack.Screen
                     name='Welcome'
                     component={welcome}

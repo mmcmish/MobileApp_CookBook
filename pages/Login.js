@@ -2,20 +2,20 @@ import {StatusBar} from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard,} from 'react-native';
 import {Platform} from 'react-native';
-import { auth, signInWithGoogle, LoginWithEmailAndPassword } from '../config/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { redirect} from 'react-router-dom';
+import {auth, signInWithGoogle, LoginWithEmailAndPassword} from '../config/firebase';
+import {useAuthState} from 'react-firebase-hooks/auth';
+import {redirect} from 'react-router-dom';
 
-Login  = () => {
-   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
-   const [user,loading,error] = useAuthState(auth);
+Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [user, loading, error] = useAuthState(auth);
 
-   const login = () => {
-    if(!password || !email) alert("please enter required fields");
-    LoginWithEmailAndPassword(email,password)
-   
-   }
+    const login = () => {
+        if (!password || !email) alert("please enter required fields");
+        LoginWithEmailAndPassword(email, password)
+
+    }
 //    function onAuthStateChanged(user){
 //     setUser(user);
 //     if(initializing) setInitializing(false);
@@ -25,51 +25,51 @@ Login  = () => {
 //     return subscriber;
 //    }, [])
 
-   useEffect(() =>{
-    if (loading){
-        return;
-    }
-    if (user) redirect("/Home");
-   }, [user, loading]);
-   return(
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={styles.container}>
-        <Text style={styles.title}>Cookbook</Text>
-        <Text style={styles.subtitle}>Login</Text>
-        <View style={styles.inputView}>
-            <TextInput
+    useEffect(() => {
+        if (loading) {
+            return;
+        }
+        if (user) redirect("/Home");
+    }, [user, loading]);
+    return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.container}>
+                <Text style={styles.title}>Cookbook</Text>
+                <Text style={styles.subtitle}>Login</Text>
+                <View style={styles.inputView}>
+                    <TextInput
 
-                style={styles.inputText}
-                placeholder="Email"
-                placeholderTextColor="#003f5c"
-                value={email}
-                onChangeText={(Text) => setEmail(Text)}
-            />
-        </View>
-        <View style={styles.inputView}>
-            <TextInput
-                secureTextEntry
-                style={styles.inputText}
-                placeholder="Password"
-                placeholderTextColor="#003f5c"
-                value={password}
-                onChangeText={(Text) => setPassword(Text)}
-            />
-        </View>
-        <TouchableOpacity style={styles.loginBtn} onPress={login}>
-            <Text style={styles.loginText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style = {styles.loginBtn} onPress = {signInWithGoogle}>
-            <Text style = {styles.loginText} > Google Login </Text>
-        </TouchableOpacity>
-       
-        <StatusBar style="auto" />
-    </View>
-</TouchableWithoutFeedback>
-   )
+                        style={styles.inputText}
+                        placeholder="Email"
+                        placeholderTextColor="#003f5c"
+                        value={email}
+                        onChangeText={(Text) => setEmail(Text)}
+                    />
+                </View>
+                <View style={styles.inputView}>
+                    <TextInput
+                        secureTextEntry
+                        style={styles.inputText}
+                        placeholder="Password"
+                        placeholderTextColor="#003f5c"
+                        value={password}
+                        onChangeText={(Text) => setPassword(Text)}
+                    />
+                </View>
+                <TouchableOpacity style={styles.loginBtn} onPress={login}>
+                    <Text style={styles.loginText}>Login</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.loginBtn} onPress={signInWithGoogle}>
+                    <Text style={styles.loginText}>Google Login</Text>
+                </TouchableOpacity>
+
+                <StatusBar style="auto"/>
+            </View>
+        </TouchableWithoutFeedback>
+    )
 }
 
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
