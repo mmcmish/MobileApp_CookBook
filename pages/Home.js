@@ -1,28 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { Button, Icon } from 'react-native-elements';
 import { auth, db, logOut } from '../config/firebase';
 
 const Home = () => {
     const { user } = useAuthentication();
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.headerBackground} />
 
             <Text style={styles.title}>Cookbook</Text>
-            <TouchableOpacity style={styles.addButton}>
+            <TouchableOpacity style={styles.addButton} onPress={toggleModal}>
                 <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.searchButton}>
-                <Icon name="search" type="font-awesome" color="#000" size={30} style={{padding: 20}} />
+                <Icon name="search" type="font-awesome" color="#000" size={30} style={{ padding: 20 }} />
             </TouchableOpacity>
 
             <View style={styles.logoutButtonContainer}>
-                <Button title='log out' onPress={logOut} />
+                <Button title="log out" onPress={logOut} />
             </View>
+
+            <Modal visible={modalVisible} animationType="slide">
+                <View style={styles.modalContainer}>
+                    <TextInput style={styles.input} placeholder="Enter recipe name" />
+                    <Button title="Save" onPress={toggleModal} />
+                </View>
+            </Modal>
         </View>
     );
 };
@@ -77,6 +89,20 @@ const styles = StyleSheet.create({
     logoutButtonContainer: {
         position: 'absolute',
         bottom: 20,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+    },
+    input: {
+        height: 40,
+        width: '80%',
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginBottom: 10,
+        paddingHorizontal: 10,
     },
 });
 
