@@ -9,8 +9,6 @@ import { IconButton as PaperIconButton } from 'react-native-paper';
 import { redirect } from 'react-router-dom';
 
 
-import Home from "../pages/Home";//remove after test
-
 const Stack = createStackNavigator();
 
 export default function AuthStack() {
@@ -34,12 +32,7 @@ export default function AuthStack() {
 
 
             >
-                {/*remove after test*/}
-                {/*<Stack.Screen*/}
-                {/*    name='Home'*/}
-                {/*    component={Home}*/}
-                {/*    options={{ headerShown: false }} // hide the header for the Home screen*/}
-                {/*/>*/}
+
 
 
                 <Stack.Screen

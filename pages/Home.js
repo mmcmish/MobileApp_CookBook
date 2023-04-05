@@ -31,10 +31,16 @@ const Home = () => {
 
             <Modal visible={modalVisible} animationType="slide">
                 <View style={styles.modalContainer}>
-                    <TextInput style={styles.input} placeholder="Enter recipe name" />
-                    <Button title="Save" onPress={toggleModal} />
+                    <Text style={styles.modalTitle}>Create a new list</Text>
+                    <TextInput style={styles.input} placeholder="Enter list name" />
+                    <TextInput style={styles.input} placeholder="Enter email addresses separated by commas" />
+                    <View style={styles.buttonContainer}>
+                        <Button title="Cancel" onPress={toggleModal} />
+                        <Button title="Save" onPress={toggleModal} />
+                    </View>
                 </View>
             </Modal>
+
         </View>
     );
 };
@@ -104,6 +110,23 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingHorizontal: 10,
     },
+    modalTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '80%',
+        marginTop: 20,
+    },
 });
 
 export default Home;
+
+
+
+// list name
+// add participants
+// save button

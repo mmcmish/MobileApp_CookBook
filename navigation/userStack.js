@@ -11,8 +11,11 @@ export default function UserStack(){
         <NavigationContainer>
             <Stack.Navigator>
 
-            <Stack.Screen name="Home" component={Home}/>
-
+                <Stack.Screen
+                    name='Home'
+                    component={Home}
+                    options={{ headerShown: false }} // hide the header for the Home screen
+                />
 
 
             </Stack.Navigator>
