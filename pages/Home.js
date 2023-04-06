@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Switch } from 'react-native';
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { Button, Icon } from 'react-native-elements';
 import { auth, db, logOut } from '../config/firebase';
@@ -7,14 +7,23 @@ import { auth, db, logOut } from '../config/firebase';
 const Home = () => {
     const { user } = useAuthentication();
     const [modalVisible, setModalVisible] = useState(false);
+    const [showAddMembers, setShowAddMembers] = useState(false);
+    const [members, setMembers] = useState([]);
+    const [newMemberEmail, setNewMemberEmail] = useState('');
 
     const toggleModal = () => {
         setModalVisible(!modalVisible);
     };
 
+    const addMember = () => {
+        setMembers([...members, newMemberEmail]);
+        setNewMemberEmail('');
+    };
+
     return (
         <View style={styles.container}>
-            <View style={styles.headerBackground} />
+
+        <View style={styles.headerBackground} />
 
             <Text style={styles.title}>Cookbook</Text>
             <TouchableOpacity style={styles.addButton} onPress={toggleModal}>
@@ -33,7 +42,30 @@ const Home = () => {
                 <View style={styles.modalContainer}>
                     <Text style={styles.modalTitle}>Create a new list</Text>
                     <TextInput style={styles.input} placeholder="Enter list name" />
-                    <TextInput style={styles.input} placeholder="Enter email addresses separated by commas" />
+
+                    <View style={styles.switchContainer}>
+                        <Text style={styles.switchText}>Add Members</Text>
+                        <Switch
+                            value={showAddMembers}
+                            onValueChange={(value) => setShowAddMembers(value)}
+                        />
+                    </View>
+
+                    {showAddMembers && (
+                        <>
+                            {members.map((member, index) => (
+                                <Text key={index}>{member}</Text>
+                            ))}
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Enter email address"
+                                value={newMemberEmail}
+                                onChangeText={setNewMemberEmail}
+                            />
+                            <Button title="Add Member" onPress={addMember} />
+                        </>
+                    )}
+
                     <View style={styles.buttonContainer}>
                         <Button title="Cancel" onPress={toggleModal} />
                         <Button title="Save" onPress={toggleModal} />
@@ -121,12 +153,15 @@ const styles = StyleSheet.create({
         width: '80%',
         marginTop: 20,
     },
+    switchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
+    switchText: {
+        marginRight: 10,
+    },
 });
 
 export default Home;
-
-
-
-// list name
-// add participants
-// save button
