@@ -1,5 +1,5 @@
 import { getAuth,signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
+import { getFirestore, query, getDocs, collection, where, addDoc, updateDoc, doc } from 'firebase/firestore';
 import Constants from 'expo-constants';
 import { initializeApp } from 'firebase/app';
 import {GoogleSignin, GoogleSigninButton, statusCodes,} from 'react-native-google-signin';
@@ -64,6 +64,17 @@ const registerWithEmailAndPassword = async (name, email,password) => {
   }
 };
 
+const addList = async(listName) =>{
+  try{
+    const groceryListRef = doc(db, "Users", "Grocery-List");
+    await updateDoc(groceryListRef, {
+      listName,
+    });
+  }catch (err) {
+    console.error(err);
+  }
+}
+
 const sendPasswordReset = async(email) => {
   try{
     await sendPasswordResetEmail(auth, email);
@@ -82,6 +93,7 @@ export{
   db,
   app,
   // signInWithGoogle,
+  addList,
   LoginWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,

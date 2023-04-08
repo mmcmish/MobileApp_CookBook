@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Switch } from 'react-native';
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { Button, Icon } from 'react-native-elements';
-import { auth, db, logOut } from '../config/firebase';
+import { auth, db, logOut, addList } from '../config/firebase';
 
 const Home = () => {
     const { user } = useAuthentication();
@@ -10,10 +10,16 @@ const Home = () => {
     const [showAddMembers, setShowAddMembers] = useState(false);
     const [members, setMembers] = useState([]);
     const [newMemberEmail, setNewMemberEmail] = useState('');
+    const [listName, setListName] = useState("")
 
     const toggleModal = () => {
         setModalVisible(!modalVisible);
     };
+
+    const addlist = () =>{
+        if(!listName) alert ("Enter the required field")
+        addList(listName);
+    }
 
     const addMember = () => {
         setMembers([...members, newMemberEmail]);
@@ -41,7 +47,7 @@ const Home = () => {
             <Modal visible={modalVisible} animationType="slide">
                 <View style={styles.modalContainer}>
                     <Text style={styles.modalTitle}>Create a new list</Text>
-                    <TextInput style={styles.input} placeholder="Enter list name" />
+                    <TextInput style={styles.input} placeholder="Enter list name" onChangeText={(Text) => setListName(Text)} />
 
                     <View style={styles.switchContainer}>
                         <Text style={styles.switchText}>Add Members</Text>
@@ -68,7 +74,7 @@ const Home = () => {
 
                     <View style={styles.buttonContainer}>
                         <Button title="Cancel" onPress={toggleModal} />
-                        <Button title="Save" onPress={toggleModal} />
+                        <Button title="Save" onPress={addlist} />
                     </View>
                 </View>
             </Modal>
