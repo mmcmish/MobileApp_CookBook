@@ -1,5 +1,5 @@
 import { getAuth,signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { getFirestore, query, getDocs, collection, where, addDoc, updateDoc, doc } from 'firebase/firestore';
+import { getFirestore, query, getDocs, collection, where, addDoc, updateDoc, doc, getDocFromCache, getDoc } from 'firebase/firestore';
 import Constants from 'expo-constants';
 import { initializeApp } from 'firebase/app';
 import {GoogleSignin, GoogleSigninButton, statusCodes,} from 'react-native-google-signin';
@@ -64,15 +64,33 @@ const registerWithEmailAndPassword = async (name, email,password) => {
   }
 };
 
-const addList = async(listName) =>{
-  try{
-    const groceryListRef = doc(db, "Users", "Grocery-List");
-    await updateDoc(groceryListRef, {
-      listName,
-    });
-  }catch (err) {
-    console.error(err);
+const CreateList = async(listName, items, Number, user ) =>{
+  const groceryListRef = collection(db, "Users", "ShoppingList");
+  const data = {
+    Name: listName,
+    products: items,
+    amount: Number,
+    email:user.email,
+    LId: groceryListRef.id
   }
+  addDoc(groceryListRef, data)
+  .then(groceryListRef =>{
+    alert("Documnet has been successfully made ")
+  }).catch(error =>{
+    console.log(error);
+  })
+  
+}
+
+const ReadList = async(groceryListRef) =>{
+  const ShoppingListRef = doc(db, "Users", groceryListRef.id)
+  try{
+    const docSnap = await getDoc(ShoppingListRef)
+    docSnap.data()
+  }catch(error){
+    console.log(error)
+  }
+
 }
 
 const sendPasswordReset = async(email) => {
@@ -93,7 +111,8 @@ export{
   db,
   app,
   // signInWithGoogle,
-  addList,
+  CreateList,
+  ReadList,
   LoginWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,

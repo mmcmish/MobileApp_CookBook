@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Switch } from 'react-native';
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { Button, Icon } from 'react-native-elements';
-import { auth, db, logOut, addList } from '../config/firebase';
+import { auth, db, logOut, CreateList } from '../config/firebase';
 
 const Home = () => {
     const { user } = useAuthentication();
@@ -16,9 +16,9 @@ const Home = () => {
         setModalVisible(!modalVisible);
     };
 
-    const addlist = () =>{
+    const createlist = () =>{
         if(!listName) alert ("Enter the required field")
-        addList(listName);
+        CreateLis(listName);
     }
 
     const addMember = () => {
@@ -74,7 +74,7 @@ const Home = () => {
 
                     <View style={styles.buttonContainer}>
                         <Button title="Cancel" onPress={toggleModal} />
-                        <Button title="Save" onPress={addlist} />
+                        <Button title="Save" onPress={createlist} />
                     </View>
                 </View>
             </Modal>
