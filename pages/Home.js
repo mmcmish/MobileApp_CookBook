@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Switch } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    Modal,
+    TextInput,
+    Switch,
+} from 'react-native';
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { Button, Icon } from 'react-native-elements';
 import { auth, db, logOut, CreateList } from '../config/firebase';
@@ -10,16 +18,17 @@ const Home = () => {
     const [showAddMembers, setShowAddMembers] = useState(false);
     const [members, setMembers] = useState([]);
     const [newMemberEmail, setNewMemberEmail] = useState('');
-    const [listName, setListName] = useState("")
+    const [listName, setListName] = useState('');
+    const [groceryLists, setGroceryLists] = useState([]);
 
     const toggleModal = () => {
         setModalVisible(!modalVisible);
     };
 
-    const createlist = () =>{
-        if(!listName) alert ("Enter the required field")
-        CreateLis(listName);
-    }
+    const createlist = () => {
+        if (!listName) alert('Enter the required field');
+        CreateList(listName);
+    };
 
     const addMember = () => {
         setMembers([...members, newMemberEmail]);
@@ -28,8 +37,7 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-
-        <View style={styles.headerBackground} />
+            <View style={styles.headerBackground} />
 
             <Text style={styles.title}>Cookbook</Text>
             <TouchableOpacity style={styles.addButton} onPress={toggleModal}>
@@ -37,7 +45,13 @@ const Home = () => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.searchButton}>
-                <Icon name="search" type="font-awesome" color="#000" size={30} style={{ padding: 20 }} />
+                <Icon
+                    name="search"
+                    type="font-awesome"
+                    color="#000"
+                    size={30}
+                    style={{ padding: 20 }}
+                />
             </TouchableOpacity>
 
             <View style={styles.logoutButtonContainer}>
@@ -47,13 +61,17 @@ const Home = () => {
             <Modal visible={modalVisible} animationType="slide">
                 <View style={styles.modalContainer}>
                     <Text style={styles.modalTitle}>Create a new list</Text>
-                    <TextInput style={styles.input} placeholder="Enter list name" onChangeText={(Text) => setListName(Text)} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter list name"
+                        onChangeText={Text => setListName(Text)}
+                    />
 
                     <View style={styles.switchContainer}>
                         <Text style={styles.switchText}>Add Members</Text>
                         <Switch
                             value={showAddMembers}
-                            onValueChange={(value) => setShowAddMembers(value)}
+                            onValueChange={value => setShowAddMembers(value)}
                         />
                     </View>
 
@@ -79,10 +97,19 @@ const Home = () => {
                 </View>
             </Modal>
 
+            <View style={styles.groceryListsContainer}>
+                {groceryLists.map(list => (
+                    <TouchableOpacity
+                        key={list.id}
+                        style={styles.groceryList}
+                        onPress={() => console.log(`Open list ${list.name}`)}>
+                        <Text style={styles.groceryListName}>{list.name}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
         </View>
     );
 };
-
 
 const styles = StyleSheet.create({
     container: {
@@ -167,6 +194,22 @@ const styles = StyleSheet.create({
     },
     switchText: {
         marginRight: 10,
+    },
+    groceryListsContainer: {
+        marginTop: Platform.OS === 'ios' ? 240 : 200,
+    },
+    groceryList: {
+        backgroundColor: '#c7ccd1',
+        width: '80%',
+        height: 50,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
+    groceryListName: {
+        fontSize: 18,
+        fontWeight: 'bold',
     },
 });
 
