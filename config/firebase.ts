@@ -1,5 +1,5 @@
 import { getAuth,signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { getFirestore, query, getDocs, collection, where, addDoc, updateDoc, doc, getDocFromCache, getDoc } from 'firebase/firestore';
+import { getFirestore, query, getDocs, collection, where, addDoc, updateDoc, doc, getDocFromCache, getDoc, setDoc } from 'firebase/firestore';
 import Constants from 'expo-constants';
 import { initializeApp } from 'firebase/app';
 import {GoogleSignin, GoogleSigninButton, statusCodes,} from 'react-native-google-signin';
@@ -38,6 +38,32 @@ const googleProvider = new GoogleAuthProvider();
 //  })
 // };
 
+
+const registerWithEmailAndPassword = (email,password) => {
+  createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // User created successfully
+    const user = userCredential.user;
+
+    // Create collection for user data
+    const usersCollection = collection(db, 'Users');
+    
+
+    addDoc(usersCollection, {
+      uid: user.uid,
+      email: user.email,
+      // other user data
+    }).then(() => {
+      console.log('User data saved successfully');
+    }).catch((error) => {
+      console.error('Error saving user data:', error);
+    });
+  })
+  .catch((error) => {
+    console.error('Error creating user:', error);
+  });
+
+};
 const LoginWithEmailAndPassword = async (email, password) =>{
 
   try{
@@ -45,22 +71,6 @@ const LoginWithEmailAndPassword = async (email, password) =>{
   }catch(err){
     console.error(err);
     alert(err.message)
-  }
-};
-
-const registerWithEmailAndPassword = async (name, email,password) => {
-  try{
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    await addDoc(collection(db, "Users"), {
-      uid: user.uid,
-      name, 
-      authProvider: "local",
-      email,
-    });
-  }catch (err) {
-    console.error(err);
-    alert(err.message);
   }
 };
 

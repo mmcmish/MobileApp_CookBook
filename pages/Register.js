@@ -16,15 +16,15 @@ import {redirect,} from "react-router-dom";
 import {auth, registerWithEmailAndPassword, signInWithGoogle} from '../config/firebase';
 
 Register = () => {
-    const [name, setName] = useState("");
+    // const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, loading, error] = useAuthState(auth);
 
     const register = () => {
-        if (!name || !password || !email) alert("please enter required fields");
-        registerWithEmailAndPassword(name, email, password);
-
+        if( !password || !email) alert("please enter required fields");
+        registerWithEmailAndPassword( email, password)
+     
     };
 
     useEffect(() => {
@@ -36,7 +36,7 @@ Register = () => {
             <View style={styles.container}>
                 <Text style={styles.title}>Cookbook</Text>
                 <Text style={styles.subtitle}>Register</Text>
-                <View style={styles.inputView}>
+                {/* <View style={styles.inputView}>
                     <TextInput
                         style={styles.inputText}
                         value={name}
@@ -44,14 +44,14 @@ Register = () => {
                         placeholder='Full Name'
                         onChangeText={(Text) => setName(Text)}
                     />
-                </View>
+                </View> */}
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.inputText}
                         value={email}
                         placeholder="Email"
                         placeholderTextColor="#003f5c"
-                        onChangeText={(Text) => setEmail(Text)}
+                        onChangeText={Text => setEmail(Text)}
                     />
                 </View>
 
@@ -62,7 +62,7 @@ Register = () => {
                         placeholder="Password"
                         value={password}
                         placeholderTextColor="#003f5c"
-                        onChangeText={(Text) => setPassword(Text)}
+                        onChangeText={Text => setPassword(Text)}
                     />
                 </View>
                 <TouchableOpacity style={styles.registerBtn} onPress={register}>
