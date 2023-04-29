@@ -1,4 +1,10 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@react-native-firebase/app": ["./node_modules/@react-native-firebase/app"],
+      "@react-native-firebase/firestore": ["./node_modules/@react-native-firebase/firestore"]
+    }
+  },
   "extends": "expo/tsconfig.base"
 }

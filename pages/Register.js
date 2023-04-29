@@ -16,7 +16,7 @@ import {redirect,} from "react-router-dom";
 import {auth, registerWithEmailAndPassword, signInWithGoogle} from '../config/firebase';
 
 Register = () => {
-    // const [name, setName] = useState("");
+   
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, loading, error] = useAuthState(auth);
@@ -36,15 +36,6 @@ Register = () => {
             <View style={styles.container}>
                 <Text style={styles.title}>Cookbook</Text>
                 <Text style={styles.subtitle}>Register</Text>
-                {/* <View style={styles.inputView}>
-                    <TextInput
-                        style={styles.inputText}
-                        value={name}
-                        placeholderTextColor="#003f5c"
-                        placeholder='Full Name'
-                        onChangeText={(Text) => setName(Text)}
-                    />
-                </View> */}
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.inputText}

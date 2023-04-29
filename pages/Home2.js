@@ -48,7 +48,7 @@ const Home2 = () => {
     return (
         <View style={styles.container}>
             <View style={styles.headerBackground} />
-            <Text>{user?.email}</Text>
+          
 
             <Text style={styles.title}>Cookbook</Text>
             <TouchableOpacity style={styles.addButton} onPress={toggleModal}>

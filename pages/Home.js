@@ -24,6 +24,9 @@ const Home = () => {
     const toggleModal = () => {
         setModalVisible(!modalVisible);
     };
+    const navigatepress = () =>{
+        navigation.navigate("Home2");
+    }
 
     const createlist = () => {
         if (!listName) alert('Enter the required field');
@@ -38,7 +41,7 @@ const Home = () => {
     return (
         <View style={styles.container}>
             <View style={styles.headerBackground} />
-            <Text>{user?.email}</Text>
+         
 
             <Text style={styles.title}>Cookbook</Text>
             <TouchableOpacity style={styles.addButton} onPress={toggleModal}>
@@ -93,7 +96,7 @@ const Home = () => {
 
                     <View style={styles.buttonContainer}>
                         <Button title="Cancel" onPress={toggleModal} />
-                        <Button title="Save" onPress={createlist} />
+                        <Button title="Save" onPress={navigatepress} />
                     </View>
                 </View>
             </Modal>
