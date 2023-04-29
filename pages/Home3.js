@@ -7,12 +7,13 @@ import {
     Modal,
     TextInput,
     Switch,
+    Input
 } from 'react-native';
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { Button, Icon } from 'react-native-elements';
 import { auth, db, logOut, CreateList } from '../config/firebase';
 
-
+let nextId = 0;
 const Home3 = () => {
     const { user } = useAuthentication();
     const [modalVisible, setModalVisible] = useState(false);
@@ -23,14 +24,17 @@ const Home3 = () => {
     const [groceryLists, setGroceryLists] = useState([]);
     const [shoppingListModalVisible, setShoppingListModalVisible] = useState(false);
     const [newItem, setNewItem] = useState('');
-
+    const [Lists, setLists] = useState([])
     const toggleShoppingListModal = () => {
         setNewItem('');
         setShoppingListModalVisible(!shoppingListModalVisible);
     };
 
     const addItem = () => {
-
+        setLists([
+            ...Lists,
+            {id: nextId++, name: newItem}
+        ])
     };
 
     const toggleModal = () => {
@@ -46,7 +50,6 @@ const Home3 = () => {
         setMembers([...members, newMemberEmail]);
         setNewMemberEmail('');
     };
-
     return (
         <View style={styles.container}>
             <View style={styles.headerBackground} />
@@ -90,14 +93,15 @@ const Home3 = () => {
 
                     {/* Remove the condition for rendering the TextInput and the Button component */}
                     <View>
-                        <TextInput
+                        <Input
                             style={styles.input}
                             placeholder="Enter item"
-                            value={newItem.trim()}
-                            onChangeText={setNewItem}
+                            value={newItem}
+                            onChange={e => setNewItem(e.target.value)}
                         />
                         <Button title="Add to List" onPress={addItem} />
                     </View>
+                  
 
                     <View style={styles.buttonContainer}>
                         <Button title="Cancel" onPress={toggleShoppingListModal} />
@@ -143,16 +147,14 @@ const Home3 = () => {
                     </View>
                 </View>
             </Modal>
-            <View style={styles.groceryListsContainer}>
-                {groceryLists.map(list => (
-                    <TouchableOpacity
-                        key={list.id}
-                        style={styles.groceryList}
-                        onPress={() => console.log(`Open list ${list.name}`)}>
-                        <Text style={styles.groceryListName}>{list.name}</Text>
-                    </TouchableOpacity>
-                ))}
-            </View>
+
+            <>
+            <ul>
+                        {Lists.map((List) =>{
+                            <li key={List.id}>{List.name}</li>
+                        })}
+                    </ul>
+            </>
         </View>
     );
 };
