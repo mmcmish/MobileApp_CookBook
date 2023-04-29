@@ -11,9 +11,9 @@ import {
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { Button, Icon } from 'react-native-elements';
 import { auth, db, logOut, CreateList } from '../config/firebase';
-import { useNavigation } from '@react-navigation/native';
 
-const Home2 = () => {
+
+const Home3 = () => {
     const { user } = useAuthentication();
     const [modalVisible, setModalVisible] = useState(false);
     const [showAddMembers, setShowAddMembers] = useState(false);
@@ -23,7 +23,6 @@ const Home2 = () => {
     const [groceryLists, setGroceryLists] = useState([]);
     const [shoppingListModalVisible, setShoppingListModalVisible] = useState(false);
     const [newItem, setNewItem] = useState('');
-    const navigation = useNavigation();
 
     const toggleShoppingListModal = () => {
         setNewItem('');
@@ -31,17 +30,11 @@ const Home2 = () => {
     };
 
     const addItem = () => {
-        // Add item to the shopping list
+
     };
 
     const toggleModal = () => {
         setModalVisible(!modalVisible);
-    };
-
-
-    const navigatepress = () => {
-        toggleModal(); // Close the modal
-        navigation.navigate('Home3');
     };
 
     const createlist = () => {
@@ -57,7 +50,7 @@ const Home2 = () => {
     return (
         <View style={styles.container}>
             <View style={styles.headerBackground} />
-          
+
 
             <Text style={styles.title}>Cookbook</Text>
             <TouchableOpacity style={styles.addButton} onPress={toggleModal}>
@@ -103,7 +96,7 @@ const Home2 = () => {
                             value={newItem.trim()}
                             onChangeText={setNewItem}
                         />
-                        <Button title="Add to List" onPress={navigatepress} />
+                        <Button title="Add to List" onPress={addItem} />
                     </View>
 
                     <View style={styles.buttonContainer}>
@@ -270,4 +263,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Home2;
+export default Home3;

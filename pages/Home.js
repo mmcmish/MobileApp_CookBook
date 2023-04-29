@@ -11,8 +11,10 @@ import {
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { Button, Icon } from 'react-native-elements';
 import { auth, db, logOut, CreateList } from '../config/firebase';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
+    const navigation = useNavigation();
     const { user } = useAuthentication();
     const [modalVisible, setModalVisible] = useState(false);
     const [showAddMembers, setShowAddMembers] = useState(false);
@@ -24,9 +26,11 @@ const Home = () => {
     const toggleModal = () => {
         setModalVisible(!modalVisible);
     };
-    const navigatepress = () =>{
-        navigation.navigate("Home2");
-    }
+    const navigatepress = () => {
+        toggleModal(); // Close the modal
+        navigation.navigate('Home2');
+    };
+
 
     const createlist = () => {
         if (!listName) alert('Enter the required field');
