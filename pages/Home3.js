@@ -7,7 +7,7 @@ import {
     Modal,
     TextInput,
     Switch,
-    Input
+    
 } from 'react-native';
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { Button, Icon } from 'react-native-elements';
@@ -20,21 +20,19 @@ const Home3 = () => {
     const [showAddMembers, setShowAddMembers] = useState(false);
     const [members, setMembers] = useState([]);
     const [newMemberEmail, setNewMemberEmail] = useState('');
-    const [listName, setListName] = useState('');
-    const [groceryLists, setGroceryLists] = useState([]);
+    const [ListName, setListName] = useState('');
     const [shoppingListModalVisible, setShoppingListModalVisible] = useState(false);
     const [newItem, setNewItem] = useState('');
     const [Lists, setLists] = useState([])
+    
+console.log(Lists)
     const toggleShoppingListModal = () => {
         setNewItem('');
         setShoppingListModalVisible(!shoppingListModalVisible);
     };
 
     const addItem = () => {
-        setLists([
-            ...Lists,
-            {id: nextId++, name: newItem}
-        ])
+      
     };
 
     const toggleModal = () => {
@@ -42,8 +40,13 @@ const Home3 = () => {
     };
 
     const createlist = () => {
-        if (!listName) alert('Enter the required field');
-        CreateList(listName);
+        <ul>
+
+            {Lists.map((List) =>{
+                <li key={List.id}> {List.name} </li>
+            })}
+                
+        </ul>
     };
 
     const addMember = () => {
@@ -93,19 +96,29 @@ const Home3 = () => {
 
                     {/* Remove the condition for rendering the TextInput and the Button component */}
                     <View>
-                        <Input
+                        <TextInput
                             style={styles.input}
                             placeholder="Enter item"
                             value={newItem}
-                            onChange={e => setNewItem(e.target.value)}
+                            onChangeText={Text =>setNewItem(Text)}
                         />
-                        <Button title="Add to List" onPress={addItem} />
+                        <Button title="Add to List" onPress={() =>{
+                            setLists([
+                                ...Lists,
+                                {id:nextId++, name:newItem}
+                            ]);
+                        }} />
                     </View>
                   
 
                     <View style={styles.buttonContainer}>
                         <Button title="Cancel" onPress={toggleShoppingListModal} />
-                        <Button title="Save" onPress={addItem} />
+                        <Button title="Save" onPress={() =>{
+                            setLists([
+                                ...Lists,
+                                {id:nextId++, name:newItem}
+                            ]);
+                        }} />
                     </View>
                 </View>
             </Modal>
@@ -114,6 +127,7 @@ const Home3 = () => {
                     <Text style={styles.modalTitle}>Create a new list</Text>
                     <TextInput
                         style={styles.input}
+                        value={ListName}
                         placeholder="Enter list name"
                         onChangeText={Text => setListName(Text)}
                     />
@@ -145,16 +159,29 @@ const Home3 = () => {
                         <Button title="Cancel" onPress={toggleModal} />
                         <Button title="Save" onPress={createlist} />
                     </View>
+                    <View>
+                <ul>
+
+            {Lists.map((Lists) =>{
+                <li key={Lists.id}> {Lists.name} </li>
+            })}
+            </ul>
+            </View>
+                
                 </View>
             </Modal>
 
-            <>
-            <ul>
-                        {Lists.map((List) =>{
-                            <li key={List.id}>{List.name}</li>
-                        })}
-                    </ul>
-            </>
+            <View>
+            
+
+        
+                
+        
+        
+            
+        </View>
+
+
         </View>
     );
 };

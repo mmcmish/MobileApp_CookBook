@@ -46,21 +46,10 @@ const registerWithEmailAndPassword = (email,password) => {
     const user = userCredential.user;
 
     // Create collection for user data
-    const usersCollection = collection(db, 'Users');
+      
     
 
-    addDoc(usersCollection, {
-      uid: user.uid,
-      email: user.email,
-      // other user data
-    }).then(() => {
-      console.log('User data saved successfully');
-    }).catch((error) => {
-      console.error('Error saving user data:', error);
-    });
-  })
-  .catch((error) => {
-    console.error('Error creating user:', error);
+   
   });
 
 };
@@ -74,57 +63,57 @@ const LoginWithEmailAndPassword = async (email, password) =>{
   }
 };
 
-const CreateList = async(listName, items, Number, user ) =>{
-  const groceryListRef = collection(db, "Users", "ShoppingList");
-  const data = {
-    Name: listName,
-    products: items,
-    amount: Number,
-    email:user.email,
-    LId: groceryListRef.id
-  }
-  addDoc(groceryListRef, data)
-  .then(groceryListRef =>{
-    alert("Documnet has been successfully made ")
-  }).catch(error =>{
-    console.log(error);
-  })
+// const CreateList = async(listName, items, Number, user ) =>{
+//   const groceryListRef = collection(db, "Users", "ShoppingList");
+//   const data = {
+//     Name: listName,
+//     products: items,
+//     amount: Number,
+//     email:user.email,
+//     LId: groceryListRef.id
+//   }
+//   addDoc(groceryListRef, data)
+//   .then(groceryListRef =>{
+//     alert("Documnet has been successfully made ")
+//   }).catch(error =>{
+//     console.log(error);
+//   })
   
-}
+// }
 
-const ReadList = async(groceryListRef) =>{
-  const ShoppingListRef = doc(db, "Users", groceryListRef.id)
-  try{
-    const docSnap = await getDoc(ShoppingListRef)
-    docSnap.data()
-  }catch(error){
-    console.log(error)
-  }
+// const ReadList = async(groceryListRef) =>{
+//   const ShoppingListRef = doc(db, "Users", groceryListRef.id)
+//   try{
+//     const docSnap = await getDoc(ShoppingListRef)
+//     docSnap.data()
+//   }catch(error){
+//     console.log(error)
+//   }
 
-}
+// }
 
-const sendPasswordReset = async(email) => {
-  try{
-    await sendPasswordResetEmail(auth, email);
-    alert("password reset link sent");
-  }catch(err){
-    console.error(err);
-    alert(err.message);
-  }
-};
+// const sendPasswordReset = async(email) => {
+//   try{
+//     await sendPasswordResetEmail(auth, email);
+//     alert("password reset link sent");
+//   }catch(err){
+//     console.error(err);
+//     alert(err.message);
+//   }
+// };
 
-const logOut = () =>{
-  signOut(auth);
-};
+// const logOut = () =>{
+//   signOut(auth);
+// };
 export{
   auth,
   db,
   app,
   // signInWithGoogle,
-  CreateList,
-  ReadList,
+  // CreateList,
+  // ReadList,
   LoginWithEmailAndPassword,
   registerWithEmailAndPassword,
-  sendPasswordReset,
-  logOut
+  // sendPasswordReset,
+  // logOut
 }
